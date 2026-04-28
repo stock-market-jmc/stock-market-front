@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { onBeforeUnmount, onMounted, ref, watch } from "vue";
 import type AssetInterface from "@/types/AssetInterface.ts";
+import {alphaVantageApi} from "@/api/AlphaVantageApi.ts";
 
 const assets: AssetInterface[] = [
   { symbol: 'AAPL', name: 'Apple Inc' },
@@ -10,9 +11,13 @@ const assets: AssetInterface[] = [
 const open = ref(false);
 const selected = ref({ symbol: '', name: 'Select an asset' });
 
+const emit = defineEmits<{
+  select: [AssetInterface]
+}>()
+
 const selectOption = (option: AssetInterface) => {
-  selected.value = option;
   open.value = false;
+  emit('select', option)
 };
 
 const buttonRef = ref<HTMLElement | null>(null);
