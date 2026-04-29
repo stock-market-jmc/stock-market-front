@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { onBeforeUnmount, onMounted, ref, watch } from "vue";
 import type AssetInterface from "@/types/AssetInterface.ts";
-import {alphaVantageApi} from "@/api/AlphaVantageApi.ts";
 
 const assets: AssetInterface[] = [
   { symbol: 'AAPL', name: 'Apple Inc' },
@@ -41,7 +40,6 @@ watch(open, (newVal) => {
   if (newVal) updateDropdownPosition();
 });
 
-// Cerrar al hacer clic fuera
 const handleClickOutside = (event: MouseEvent) => {
   if (open.value && buttonRef.value && !buttonRef.value.contains(event.target as Node)) {
     open.value = false;

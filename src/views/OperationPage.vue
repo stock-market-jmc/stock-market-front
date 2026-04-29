@@ -3,8 +3,11 @@
 import {useOperations} from "@/stores/OperationsStore.ts";
 import {computed, ref} from "vue";
 import SelectAssetInput from "@/components/common/SelectAssetInput.vue";
-import {alphaVantageApi} from "@/api/AlphaVantageApi.ts";
 import type AssetInterface from "@/types/AssetInterface.ts";
+import GlobalQuoteCard from "@/components/AlphaVantage/GlobalQuoteCard.vue";
+import {useQuoteStore} from "@/stores/AlphaVantage/GlobalQuoteStore.ts";
+import {storeToRefs} from "pinia";
+import type GlobalQuoteInterface from "@/types/AlphaVantage/GlobalQuoteInterface.ts";
 
 const props = defineProps<{
   type: string
@@ -12,10 +15,34 @@ const props = defineProps<{
 
 const operation = computed(() => useOperations().findByType(props.type))
 
-const response = ref('')
-const callApi = async (option: AssetInterface) => {
-  response.value = await alphaVantageApi.get(option.symbol)
+
+const globalQuoteStore = useQuoteStore()
+const selectedSymbols = ref<string[]>([]);
+
+const {quotes, loading} = storeToRefs(globalQuoteStore);
+
+const onSelect = async (option: AssetInterface) => {
+  const symbol = option.symbol;
+
+  const index = selectedSymbols.value.indexOf(symbol);
+  if (index !== -1) {
+    selectedSymbols.value.splice(index, 1);
+    return;
+  }
+
+  selectedSymbols.value.push(symbol);
+  if (!quotes.value[symbol]) {
+    await globalQuoteStore.fetchQuote(option);
+  }
+};
+
+const clicked = (globalQuote: GlobalQuoteInterface) => {
+  const symbol = globalQuote.symbol;
+  const index = selectedSymbols.value.indexOf(symbol);
+  selectedSymbols.value.splice(index, 1);
 }
+
+
 </script>
 
 <template>
@@ -33,10 +60,17 @@ const callApi = async (option: AssetInterface) => {
         lg:flex-col lg:overflow-visible "
       >
         <SelectAssetInput
-        @select="callApi"/>
+            @select="onSelect"/>
       </div>
-      <div >
-        {{ response }}
+      <div>
+        <GlobalQuoteCard
+            v-for="symbol in selectedSymbols"
+            :key="symbol"
+            :symbol="symbol"
+            :global-quote="quotes[symbol]"
+            :loading="loading[symbol]"
+            @clicked="clicked"
+        />
       </div>
 
     </div>
