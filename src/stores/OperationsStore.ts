@@ -1,28 +1,27 @@
 import {defineStore} from 'pinia'
 import type {OperationInterface} from '@/types/OperationInterface'
-import {ref} from "vue";
+import GlobalQuoteView from "@/components/AlphaVantage/GlobalQuoteView.vue";
 
-const operationsList: OperationInterface [] = [
-    {type: 'Intraday'},
-    {type: 'Daily'},
-    {type: 'Daily Adjusted'},
-    {type: 'Weekly'},
-    {type: 'Weekly Adjusted'},
-    {type: 'Monthly'},
-    {type: 'Monthly Adjusted'},
-    {type: 'Global Quote'},
-    {type: 'Market Status'}
+const operationsList: OperationInterface[] = [
+    {slug: 'intraday', name: 'Intraday'},
+    {slug: 'daily', name: 'Daily'},
+    {slug: 'daily-adjusted', name: 'Daily Adjusted'},
+    {slug: 'weekly', name: 'Weekly'},
+    {slug: 'weekly-adjusted', name: 'Weekly Adjusted'},
+    {slug: 'monthly', name: 'Monthly'},
+    {slug: 'monthly-adjusted', name: 'Monthly Adjusted'},
+    {slug: 'global-quote', name: 'Global Quote', component: GlobalQuoteView},
+    {slug: 'market-status', name: 'Market Status'}
 ]
 export const useOperations = defineStore('operations', () => {
 
-    const operations = ref<OperationInterface[]>(operationsList)
+    const operations: OperationInterface[] = operationsList
 
     const findByType = (type: string): OperationInterface => {
-        const normalizedType = type.replace('-', ' ').toUpperCase()
 
-        return operations.value.find(
-            op => op.type.toUpperCase() === normalizedType
-        ) ?? { type: 'Not Found' }
+        return operations.find(
+            op => op.slug === type
+        ) ?? {slug: 'not-found', name: 'Not Found'}
     }
 
     return {

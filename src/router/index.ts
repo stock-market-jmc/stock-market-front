@@ -9,7 +9,7 @@ const operationsPattern = VALID_OPERATIONS.join('|')
 const routes = [
     { path: '/', component: HomePage },
     {
-        path: `/operation/:type(${operationsPattern})`,
+        path: `/operation/:slug(${operationsPattern})`,
         component: OperationPage,
         props: true
     }

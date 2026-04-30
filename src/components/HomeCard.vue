@@ -8,8 +8,8 @@ const props= defineProps<{
 }>()
 
 const linkToOperationPage: ComputedRef<string> = computed(()=>{
-  const operation = props.operation.type.toLowerCase().replace(' ','-')
-  return `operation/${operation}`
+  const slug = props.operation.slug
+  return `operation/${slug}`
 })
 
 </script>
@@ -23,7 +23,7 @@ const linkToOperationPage: ComputedRef<string> = computed(()=>{
          transition-all duration-300 ease-in-out
          hover:scale-105 hover:-translate-y-1 hover:shadow-lg"
   >
-    <h1 class="text-lg font-semibold">{{ operation.type }}</h1>
+    <h1 class="text-lg font-semibold">{{ operation.name }}</h1>
   </router-link>
 </template>
 

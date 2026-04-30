@@ -1,3 +1,7 @@
+import type {Component} from "vue";
+
 export interface OperationInterface {
-    type: string;
+    slug: string;
+    name: string;
+    component?: Component
 }
