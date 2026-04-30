@@ -2,13 +2,14 @@
 
 import {useOperations} from "@/stores/OperationsStore.ts";
 import {computed, ref} from "vue";
-import SelectAssetInput from "@/components/common/SelectAssetInput.vue";
 import type AssetInterface from "@/types/AssetInterface.ts";
 import GlobalQuoteCard from "@/components/AlphaVantage/GlobalQuoteCard.vue";
 import {useQuoteStore} from "@/stores/AlphaVantage/GlobalQuoteStore.ts";
 import {storeToRefs} from "pinia";
 import type GlobalQuoteInterface from "@/types/AlphaVantage/GlobalQuoteInterface.ts";
+import SelectAssets from "@/components/AlphaVantage/SelectAssets.vue";
 
+const EMPTY_ASSET = {symbol: '', name: 'Select an asset'}
 const props = defineProps<{
   type: string
 }>()
@@ -21,7 +22,10 @@ const selectedSymbols = ref<string[]>([]);
 
 const {quotes, loading} = storeToRefs(globalQuoteStore);
 
+const selectedAsset = ref<AssetInterface>(EMPTY_ASSET)
+
 const onSelect = async (option: AssetInterface) => {
+
   const symbol = option.symbol;
 
   const index = selectedSymbols.value.indexOf(symbol);
@@ -36,12 +40,11 @@ const onSelect = async (option: AssetInterface) => {
   }
 };
 
-const clicked = (globalQuote: GlobalQuoteInterface) => {
+const removeQuote = (globalQuote: GlobalQuoteInterface) => {
   const symbol = globalQuote.symbol;
   const index = selectedSymbols.value.indexOf(symbol);
   selectedSymbols.value.splice(index, 1);
 }
-
 
 </script>
 
@@ -59,8 +62,11 @@ const clicked = (globalQuote: GlobalQuoteInterface) => {
         flex flex-row gap-3 flex-nowrap scrollbar-hidden
         lg:flex-col lg:overflow-visible "
       >
-        <SelectAssetInput
-            @select="onSelect"/>
+        <SelectAssets
+          :selected-asset="selectedAsset"
+          @updateOption="onSelect"
+        />
+
       </div>
       <div>
         <GlobalQuoteCard
@@ -69,7 +75,7 @@ const clicked = (globalQuote: GlobalQuoteInterface) => {
             :symbol="symbol"
             :global-quote="quotes[symbol]"
             :loading="loading[symbol]"
-            @clicked="clicked"
+            @remove-quote="removeQuote"
         />
       </div>
 

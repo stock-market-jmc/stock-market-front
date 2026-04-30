@@ -8,10 +8,10 @@ const props = defineProps<{
 }>();
 
 const emits = defineEmits<{
-  clicked: [GlobalQuoteInterface]
+  removeQuote: [GlobalQuoteInterface]
 }>()
 const onClick = () => {
-  emits('clicked', props.globalQuote)
+  emits('removeQuote', props.globalQuote)
 }
 </script>
 
