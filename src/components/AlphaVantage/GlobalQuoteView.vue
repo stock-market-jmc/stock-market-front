@@ -51,12 +51,12 @@ const removeQuote = (globalQuote: GlobalQuoteInterface) => {
       {{ title }}
     </h1>
 
-    <div class="flex flex-col lg:flex-row gap-6">
+    <div class="flex flex-col md:flex-row gap-6">
 
       <div class="
         overflow-x-auto overflow-y-visible
         flex flex-row gap-3 flex-nowrap scrollbar-hidden
-        lg:flex-col lg:overflow-visible "
+        md:flex-col md:overflow-visible "
       >
         <SelectAssets
             :selected-asset="selectedAsset"

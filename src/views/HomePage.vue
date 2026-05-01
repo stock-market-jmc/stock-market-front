@@ -7,7 +7,10 @@ const operations= useOperations().operations
 
 </script>
 <template>
-  <div class="py-10 px-6 max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-4">
+  <h1 class="text-2xl font-semibold text-gray-800  text-center">
+    Operations
+  </h1>
+  <div class="py-4 px-2 grid grid-cols-1 md:grid-cols-3 gap-4">
     <HomeCard
         v-for="operation in operations"
         :key="operation.slug"

@@ -20,7 +20,7 @@ const selectOption = (option: string) => {
 </script>
 
 <template>
-  <div class="relative w-72 lg:w-96 shrink-0">
+  <div class="relative w-72 md:w-96 shrink-0">
     <div
         @click="open = !open"
         class="bg-white border border-gray-200 rounded-xl px-4 py-3 flex justify-between items-center cursor-pointer transition-all duration-200 hover:shadow-md hover:border-gray-300"
