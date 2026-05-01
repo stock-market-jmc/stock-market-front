@@ -17,8 +17,7 @@ const onClick = () => {
 
 <template>
   <div
-      class="bg-white rounded-lg shadow-md
-        p-4 md:w-80"
+      class="bg-white rounded-lg shadow-md p-4"
       @click="onClick">
     <div v-if="props.loading">Loading...</div>
     <div v-else class="flex flex-col gap-2">

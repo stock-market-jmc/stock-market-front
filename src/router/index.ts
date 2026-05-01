@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
-import HomePage from '@/views/HomePage.vue';
-import OperationPage from "@/views/OperationPage.vue";
+import HomePage from '@/pages/HomePage.vue';
+import OperationPage from "@/pages/OperationPage.vue";
 import {VALID_OPERATIONS} from "@/constants/operations.ts";
 
 const operationsPattern = VALID_OPERATIONS.join('|')

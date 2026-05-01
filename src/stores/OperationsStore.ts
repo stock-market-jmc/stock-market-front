@@ -1,6 +1,6 @@
 import {defineStore} from 'pinia'
 import type {OperationInterface} from '@/types/OperationInterface'
-import GlobalQuoteView from "@/components/AlphaVantage/GlobalQuoteView.vue";
+import GlobalQuoteView from "@/views/GlobalQuoteView.vue";
 
 const operationsList: OperationInterface[] = [
     {slug: 'intraday', name: 'Intraday'},
