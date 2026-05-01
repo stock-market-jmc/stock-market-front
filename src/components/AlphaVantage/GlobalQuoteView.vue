@@ -47,16 +47,17 @@ const removeQuote = (globalQuote: GlobalQuoteInterface) => {
 <template>
   <div class="flex flex-col">
 
-    <h1 class="w-full text-2xl font-semibold text-gray-800 pb-6 text-center">
+    <h1 class="w-full text-2xl font-semibold text-gray-800 pb-6 text-center
+                md:sticky md:top-0 md:pt-6 md:self-start bg-gray-50">
       {{ title }}
     </h1>
 
     <div class="flex flex-col md:flex-row gap-6">
 
       <div class="
-        overflow-x-auto overflow-y-visible
         flex flex-row gap-3 flex-nowrap scrollbar-hidden
-        md:flex-col md:overflow-visible "
+        md:flex-col md:overflow-visible
+        md:sticky md:top-20 md:self-start"
       >
         <SelectAssets
             :selected-asset="selectedAsset"
@@ -64,7 +65,39 @@ const removeQuote = (globalQuote: GlobalQuoteInterface) => {
         />
 
       </div>
-      <div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+        <GlobalQuoteCard
+            v-for="symbol in selectedSymbols"
+            :key="symbol"
+            :symbol="symbol"
+            :global-quote="quotes[symbol]"
+            :loading="loading[symbol]"
+            @remove-quote="removeQuote"
+        />
+        <GlobalQuoteCard
+            v-for="symbol in selectedSymbols"
+            :key="symbol"
+            :symbol="symbol"
+            :global-quote="quotes[symbol]"
+            :loading="loading[symbol]"
+            @remove-quote="removeQuote"
+        />
+        <GlobalQuoteCard
+            v-for="symbol in selectedSymbols"
+            :key="symbol"
+            :symbol="symbol"
+            :global-quote="quotes[symbol]"
+            :loading="loading[symbol]"
+            @remove-quote="removeQuote"
+        />
+        <GlobalQuoteCard
+            v-for="symbol in selectedSymbols"
+            :key="symbol"
+            :symbol="symbol"
+            :global-quote="quotes[symbol]"
+            :loading="loading[symbol]"
+            @remove-quote="removeQuote"
+        />
         <GlobalQuoteCard
             v-for="symbol in selectedSymbols"
             :key="symbol"

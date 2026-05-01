@@ -17,12 +17,14 @@ const onClick = () => {
 
 <template>
   <div
-      class="p-4 bg-white rounded-lg shadow-md"
+      class="bg-white rounded-lg shadow-md
+        p-4 md:w-80"
       @click="onClick">
     <div v-if="props.loading">Loading...</div>
-    <div v-else>
-      <h2>{{ props.symbol }}</h2>
+    <div v-else class="flex flex-col gap-2">
+      <h2 class="text-2xl text-center">{{ props.symbol }}</h2>
 
+      <div class="w-full h-0.5 bg-gray-300"></div>
       <p>Open: {{ props.globalQuote.open }}</p>
       <p>High: {{ props.globalQuote.high }}</p>
       <p>Low: {{ props.globalQuote.low }}</p>
