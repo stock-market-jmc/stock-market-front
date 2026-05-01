@@ -6,6 +6,7 @@ import {useQuoteStore} from "@/stores/AlphaVantage/GlobalQuoteStore.ts";
 import {storeToRefs} from "pinia";
 import type GlobalQuoteInterface from "@/types/AlphaVantage/GlobalQuoteInterface.ts";
 import SelectAssets from "@/components/AlphaVantage/SelectAssets.vue";
+import {useAvailableAssetsStore} from "@/stores/AlphaVantage/AvailableAssetsStore.ts";
 
 defineProps<{
   title: string
@@ -14,9 +15,11 @@ defineProps<{
 const EMPTY_ASSET = {symbol: '', name: 'Select an asset'}
 
 const globalQuoteStore = useQuoteStore()
-const selectedSymbols = ref<string[]>([]);
+const {getAssetNameBySymbol} = useAvailableAssetsStore()
 
 const {quotes, loading} = storeToRefs(globalQuoteStore);
+
+const selectedSymbols = ref<string[]>([]);
 
 const selectedAsset = ref<AssetInterface>(EMPTY_ASSET)
 
@@ -66,6 +69,7 @@ const removeQuote = (globalQuote: GlobalQuoteInterface) => {
           :symbol="symbol"
           :global-quote="quotes[symbol]"
           :loading="loading[symbol]"
+          :asset-name="getAssetNameBySymbol(symbol)"
           @remove-quote="removeQuote"
       />
     </div>

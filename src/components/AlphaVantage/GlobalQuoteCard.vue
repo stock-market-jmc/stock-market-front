@@ -5,6 +5,7 @@ const props = defineProps<{
   symbol: string,
   globalQuote: GlobalQuoteInterface,
   loading: boolean
+  assetName: string
 }>();
 
 const emits = defineEmits<{
@@ -13,6 +14,7 @@ const emits = defineEmits<{
 const onClick = () => {
   emits('removeQuote', props.globalQuote)
 }
+
 </script>
 
 <template>
@@ -21,7 +23,11 @@ const onClick = () => {
       @click="onClick">
     <div v-if="props.loading">Loading...</div>
     <div v-else-if="globalQuote" class="flex flex-col gap-2">
-      <h2 class="text-2xl text-center">{{ props.symbol }}</h2>
+      <div class="text-2xl flex justify-between">
+        <h2>{{ assetName }}</h2>
+        <h2 >{{ props.symbol }}</h2>
+      </div>
+
 
       <div class="w-full h-0.5 bg-gray-300"></div>
       <p>Open: {{ props.globalQuote.open }}</p>

@@ -12,5 +12,9 @@ export const useAvailableAssetsStore = defineStore("availableAssets", () => {
         availableAssets.value = await service.getAvailableAssets();
     }
 
-    return {fetchAvailableAssets, availableAssets};
+    const getAssetNameBySymbol = (symbol: string) => {
+        const asset = availableAssets.value.find(asset => asset.symbol === symbol)
+        return asset?.name ?? 'UNKNOWN'
+    }
+    return {fetchAvailableAssets, availableAssets, getAssetNameBySymbol};
 });
