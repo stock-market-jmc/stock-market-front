@@ -20,7 +20,7 @@ const onClick = () => {
       class="bg-white rounded-lg shadow-md p-4"
       @click="onClick">
     <div v-if="props.loading">Loading...</div>
-    <div v-else class="flex flex-col gap-2">
+    <div v-else-if="globalQuote" class="flex flex-col gap-2">
       <h2 class="text-2xl text-center">{{ props.symbol }}</h2>
 
       <div class="w-full h-0.5 bg-gray-300"></div>

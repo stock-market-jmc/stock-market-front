@@ -1,28 +1,37 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import {ref} from 'vue'
 
-defineProps<{
+const props = defineProps<{
   selectedOption: string
   options: string[]
+  closeOnclick: boolean
 }>()
 
 const emit = defineEmits<{
-  'updateOption': [value: string]
+  'updateOption': [value: string],
+  'closeOnClick': [false]
 }>()
 
 const open = ref(false)
 
 const selectOption = (option: string) => {
-  console.log('Generic',option)
   emit('updateOption', option)
-  open.value = false
+  if (props.closeOnclick) {
+    open.value = false
+  }
 }
+
+const onClick = () => {
+  open.value = !open.value
+  emit('closeOnClick', false)
+}
+
 </script>
 
 <template>
   <div class="relative w-72 md:w-96 shrink-0">
     <div
-        @click="open = !open"
+        @click="onClick"
         class="bg-white border border-gray-200 rounded-xl px-4 py-3 flex justify-between items-center cursor-pointer transition-all duration-200 hover:shadow-md hover:border-gray-300"
     >
       <span class="text-gray-800 font-medium">{{ selectedOption }}</span>
@@ -31,7 +40,10 @@ const selectOption = (option: string) => {
 
     <div
         v-if="open"
-        class="z-50 bg-white border border-gray-200 rounded-xl shadow-lg overflow-hidden top-full left-0 w-full mt-1"
+        class="z-50 absolute bg-white border border-gray-200
+        rounded-xl shadow-lg overflow-hidden
+        top-full left-0 w-full mt-1
+        max-h-[70vh] overflow-y-auto"
     >
       <div
           v-for="option in options"
@@ -41,6 +53,7 @@ const selectOption = (option: string) => {
       >
         {{ option }}
       </div>
+      <slot/>
     </div>
   </div>
 </template>

@@ -12,9 +12,19 @@ export default class GlobalQuoteService {
             const {data} = await alphaVantageApi.get(url)
 
             if (data.status !== 'SUCCESS') {
-                throw new Error(data.status)
+                return {
+                    symbol: option.symbol,
+                    open: 0,
+                    high: 0,
+                    low: 0,
+                    price: 0,
+                    volume: 0,
+                    latestTradingDay: '',
+                    previousClose: 0,
+                    change: 0,
+                    changePercent: 0,
+                } as GlobalQuoteInterface
             }
-
 
             const globalQuote = data.globalQuote
             return {
@@ -31,7 +41,6 @@ export default class GlobalQuoteService {
             } as GlobalQuoteInterface
         } catch (e: unknown) {
             const message = e instanceof Error ? e.message : "Unknown error"
-            alert(message)
             throw new Error(message)
         }
     }
