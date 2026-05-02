@@ -4,7 +4,7 @@ import {ref} from "vue";
 import type GlobalQuoteInterface from "@/types/AlphaVantage/GlobalQuoteInterface.ts";
 import type AssetInterface from "@/types/AssetInterface.ts";
 
-export const useQuoteStore = defineStore("quote", () => {
+export const useQuoteStore = defineStore("quoteStore", () => {
     const service = new GlobalQuoteService();
 
     const quotes = ref<Record<string, GlobalQuoteInterface>>({});

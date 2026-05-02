@@ -4,7 +4,7 @@ import AvailableAssetsService from "@/services/AvaliableAssetsService.ts";
 import {ref} from "vue";
 import type AssetInterface from "@/types/AssetInterface.ts";
 
-export const useAvailableAssetsStore = defineStore("availableAssets", () => {
+export const useAvailableAssetsStore = defineStore("availableAssetsStore", () => {
     const service = new AvailableAssetsService();
 
     const availableAssets = ref<AssetInterface[]>([]);
@@ -12,9 +12,5 @@ export const useAvailableAssetsStore = defineStore("availableAssets", () => {
         availableAssets.value = await service.getAvailableAssets();
     }
 
-    const getAssetNameBySymbol = (symbol: string) => {
-        const asset = availableAssets.value.find(asset => asset.symbol === symbol)
-        return asset?.name ?? 'UNKNOWN'
-    }
-    return {fetchAvailableAssets, availableAssets, getAssetNameBySymbol};
+    return {fetchAvailableAssets, availableAssets};
 });

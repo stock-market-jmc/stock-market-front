@@ -8,7 +8,7 @@ const EMPTY_ASSET = {symbol: '', name: 'Select an asset'} as AssetInterface
 const EMPTY_SELECT_OPTION = {label: 'Select an asset', value: EMPTY_ASSET, selected: false} as SelectOption<AssetInterface>
 
 
-export const useSelectAssetsStore = defineStore("selectAssets", () => {
+export const useSelectAssetsStore = defineStore("selectAssetsStore", () => {
 
     const selectedAsset = ref<SelectOption<AssetInterface>>(EMPTY_SELECT_OPTION)
     const selectAssets = ref<SelectOption<AssetInterface>[]>([]);

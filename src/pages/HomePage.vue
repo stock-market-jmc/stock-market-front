@@ -2,8 +2,15 @@
 
 import HomeCard from "@/components/HomeCard.vue";
 import {useOperations} from "@/stores/OperationsStore.ts";
+import {useMainStore} from "@/stores/MainStore.ts";
+import {onBeforeMount} from "vue";
 
-const operations= useOperations().operations
+const operations = useOperations().operations
+const mainStore = useMainStore()
+
+onBeforeMount(() => {
+  mainStore.setPageTitle('Home')
+})
 
 </script>
 <template>

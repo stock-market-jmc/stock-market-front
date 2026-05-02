@@ -13,19 +13,19 @@ const operationsList: OperationInterface[] = [
     {slug: 'global-quote', name: 'Global Quote', component: GlobalQuoteView},
     {slug: 'market-status', name: 'Market Status'}
 ]
-export const useOperations = defineStore('operations', () => {
+export const useOperations = defineStore('operationsStore', () => {
 
     const operations: OperationInterface[] = operationsList
 
-    const findByType = (type: string): OperationInterface => {
+    const findBySlug = (slug: string): OperationInterface => {
 
         return operations.find(
-            op => op.slug === type
+            op => op.slug === slug
         ) ?? {slug: 'not-found', name: 'Not Found'}
     }
 
     return {
         operations,
-        findByType
+        findBySlug
     }
 })
