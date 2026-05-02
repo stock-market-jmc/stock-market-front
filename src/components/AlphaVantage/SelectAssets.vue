@@ -1,39 +1,22 @@
 <script setup lang="ts">
 
 import SelectGeneric from "@/components/common/SelectGeneric.vue";
-import {computed, onBeforeMount, ref} from "vue";
+import {ref} from "vue";
 import {storeToRefs} from "pinia";
-import {useAvailableAssetsStore} from "@/stores/AlphaVantage/AvailableAssetsStore.ts";
 import type AssetInterface from "@/types/AssetInterface.ts";
 import CheckGeneric from "@/components/common/CheckGenerick.vue";
-
-defineProps<{
-  selectedAsset: AssetInterface
-}>()
+import type {SelectOption} from "@/types/SelectOption.ts";
+import {useSelectAssetsStore} from "@/stores/AlphaVantage/SelectAssetsStore.ts";
 
 const emit = defineEmits<{
-  'updateOption': [AssetInterface]
+  'selectedAsset': [ SelectOption<AssetInterface>]
 }>()
 
-const availableAssetsStore = useAvailableAssetsStore()
-const {availableAssets} = storeToRefs(availableAssetsStore);
+const selectAssetsStore = useSelectAssetsStore()
 
-const assetsNames = computed(() => availableAssets.value.map(asset => asset.name))
-
-const buildAssetFromName = (name: string): AssetInterface => {
-
-  const asset = availableAssets.value.find(asset => asset.name === name)
-  return asset ?? {symbol: 'UNKNOWN', name: name}
-}
-
-onBeforeMount(() => {
-      availableAssetsStore.fetchAvailableAssets()
-    }
-)
-
-const updateOption = (selectedOption: string) => {
-  const asset = buildAssetFromName(selectedOption)
-  emit('updateOption', asset)
+const {selectAssets, selectedAsset} = storeToRefs(selectAssetsStore)
+const onSelectOption = (selectedAsset: SelectOption<AssetInterface>) => {
+  emit('selectedAsset', selectedAsset)
 }
 
 const closeOnClick = ref(true)
@@ -41,16 +24,18 @@ const closeOnClick = ref(true)
 const onClick = (clicked: boolean) => {
   closeOnClick.value = clicked
 }
+
 </script>
 
 <template>
 
   <SelectGeneric
-      :selected-option="selectedAsset.name"
-      :options="assetsNames"
-      @updateOption="updateOption"
+      :selected-option="selectedAsset"
+      :options="selectAssets"
+      @option-selected="onSelectOption"
       :close-onclick="closeOnClick"
-      @closeOnClick="onClick"
+      @close-on-click="onClick"
+      select-class="bg-green-50 text-green-700 font-medium hover:bg-green-100"
   >
     <div class="sticky bottom-0 bg-white border-t border-gray-200 px-4 py-2 text-sm text-gray-500">
       <CheckGeneric

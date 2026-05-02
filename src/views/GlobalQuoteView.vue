@@ -1,50 +1,40 @@
 <script setup lang="ts">
-import {ref} from "vue";
-import type AssetInterface from "@/types/AssetInterface.ts";
+import {computed, onBeforeMount} from "vue";
 import GlobalQuoteCard from "@/components/AlphaVantage/GlobalQuoteCard.vue";
-import {useQuoteStore} from "@/stores/AlphaVantage/GlobalQuoteStore.ts";
-import {storeToRefs} from "pinia";
-import type GlobalQuoteInterface from "@/types/AlphaVantage/GlobalQuoteInterface.ts";
 import SelectAssets from "@/components/AlphaVantage/SelectAssets.vue";
 import {useAvailableAssetsStore} from "@/stores/AlphaVantage/AvailableAssetsStore.ts";
+import {useSelectAssetsStore} from "@/stores/AlphaVantage/SelectAssetsStore.ts";
+import type {SelectOption} from "@/types/SelectOption.ts";
+import type AssetInterface from "@/types/AssetInterface.ts";
 
 defineProps<{
   title: string
 }>()
 
-const EMPTY_ASSET = {symbol: '', name: 'Select an asset'}
 
-const globalQuoteStore = useQuoteStore()
-const {getAssetNameBySymbol} = useAvailableAssetsStore()
+const selectAssetsStore = useSelectAssetsStore()
+const availableAssetsStore = useAvailableAssetsStore()
 
-const {quotes, loading} = storeToRefs(globalQuoteStore);
+const selectedAssets = computed(() => {
+  return selectAssetsStore.selectAssets.filter(asset => {
+    return asset.selected === true
+  }) as SelectOption<AssetInterface>[]
+});
 
-const selectedSymbols = ref<string[]>([]);
-
-const selectedAsset = ref<AssetInterface>(EMPTY_ASSET)
-
-const onSelect = async (option: AssetInterface) => {
-
-  const symbol = option.symbol;
-
-  const index = selectedSymbols.value.indexOf(symbol);
-  if (index !== -1) {
-    selectedSymbols.value.splice(index, 1);
-    return;
-  }
-
-  selectedSymbols.value.push(symbol);
-  if (!quotes.value[symbol]) {
-    await globalQuoteStore.fetchQuote(option);
-  }
-};
-
-const removeQuote = (globalQuote: GlobalQuoteInterface) => {
-  const symbol = globalQuote.symbol;
-  const index = selectedSymbols.value.indexOf(symbol);
-  selectedSymbols.value.splice(index, 1);
+const changeStatus = (assetSelected: SelectOption<AssetInterface>) => {
+  selectAssetsStore.changeStatus(assetSelected)
 }
 
+function onRemoveQuote(asset: AssetInterface) {
+  const selectedAsset = {label: asset.name, value: asset, selected: false} as SelectOption<AssetInterface>
+  selectAssetsStore.changeStatus(selectedAsset)
+}
+
+onBeforeMount(async () => {
+  await availableAssetsStore.fetchAvailableAssets();
+  const availableAssets = availableAssetsStore.availableAssets
+  await selectAssetsStore.fetchSelectAssets(availableAssets)
+})
 </script>
 
 <template>
@@ -57,20 +47,15 @@ const removeQuote = (globalQuote: GlobalQuoteInterface) => {
         md:top-6"
     >
       <SelectAssets
-          :selected-asset="selectedAsset"
-          @updateOption="onSelect"
-      />
+          @selected-asset="changeStatus"/>
 
     </div>
     <div class="flex-2 grid grid-cols-1 md:grid-cols-2 gap-3">
       <GlobalQuoteCard
-          v-for="symbol in selectedSymbols"
-          :key="symbol"
-          :symbol="symbol"
-          :global-quote="quotes[symbol]"
-          :loading="loading[symbol]"
-          :asset-name="getAssetNameBySymbol(symbol)"
-          @remove-quote="removeQuote"
+          v-for="selectedAsset in selectedAssets"
+          :key="selectedAsset.value.symbol"
+          :asset-interface="selectedAsset.value"
+          @remove-quote="onRemoveQuote"
       />
     </div>
 

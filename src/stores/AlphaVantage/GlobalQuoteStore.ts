@@ -8,16 +8,22 @@ export const useQuoteStore = defineStore("quote", () => {
     const service = new GlobalQuoteService();
 
     const quotes = ref<Record<string, GlobalQuoteInterface>>({});
-    const loading = ref<Record<string, boolean>>({});
+    const loadings = ref<Record<string, boolean>>({});
 
     const fetchQuote = async (asset: AssetInterface) => {
         const symbol = asset.symbol;
 
-        loading.value[symbol] = true;
+        loadings.value[symbol] = true;
 
+        if (quotes.value[symbol]) {
+            loadings.value[symbol] = false;
+            return quotes.value[symbol];
+        }
         const quote = await service.getGlobalQuote(asset);
         quotes.value[symbol] = quote;
-        loading.value[symbol] = false;
+        loadings.value[symbol] = false;
+
+        return quote
     }
-    return {quotes, loading, fetchQuote};
+    return {quotes, loadings, fetchQuote};
 });
