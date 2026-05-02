@@ -4,7 +4,18 @@ import type GlobalQuoteInterface from "@/types/AlphaVantage/GlobalQuoteInterface
 
 const GLOBAL_QUOTE_API_URL: string = 'stocks-market-api/global-quote/';
 export default class GlobalQuoteService {
-
+    private getDefaultValue = (symbol: string): GlobalQuoteInterface => ({
+        symbol,
+        open: 0,
+        high: 0,
+        low: 0,
+        price: 0,
+        volume: 0,
+        latestTradingDay: '',
+        previousClose: 0,
+        change: 0,
+        changePercent: 0,
+    })
     public getGlobalQuote: (option: AssetInterface) => Promise<GlobalQuoteInterface> = async (option: AssetInterface) => {
 
         const url = GLOBAL_QUOTE_API_URL + option.symbol
@@ -12,18 +23,8 @@ export default class GlobalQuoteService {
             const {data} = await alphaVantageApi.get(url)
 
             if (data.status !== 'SUCCESS') {
-                return {
-                    symbol: option.symbol,
-                    open: 0,
-                    high: 0,
-                    low: 0,
-                    price: 0,
-                    volume: 0,
-                    latestTradingDay: '',
-                    previousClose: 0,
-                    change: 0,
-                    changePercent: 0,
-                } as GlobalQuoteInterface
+                console.log(data)
+                return this.getDefaultValue(option.symbol)
             }
 
             const globalQuote = data.globalQuote
@@ -41,7 +42,8 @@ export default class GlobalQuoteService {
             } as GlobalQuoteInterface
         } catch (e: unknown) {
             const message = e instanceof Error ? e.message : "Unknown error"
-            throw new Error(message)
+            console.log(message)
+            return this.getDefaultValue(option.symbol)
         }
     }
 }

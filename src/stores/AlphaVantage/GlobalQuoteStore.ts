@@ -13,19 +13,11 @@ export const useQuoteStore = defineStore("quote", () => {
     const fetchQuote = async (asset: AssetInterface) => {
         const symbol = asset.symbol;
 
-        try {
-            loading.value[symbol] = true;
+        loading.value[symbol] = true;
 
-            const quote = await service.getGlobalQuote(asset);
-            quotes.value[symbol] = quote;
-
-        } catch (e: unknown) {
-            const message = e instanceof Error ? e.message : "Error fetching quote";
-            throw new Error(message);
-        } finally {
-            loading.value[symbol] = false;
-        }
-    };
-
-    return { quotes, loading, fetchQuote };
+        const quote = await service.getGlobalQuote(asset);
+        quotes.value[symbol] = quote;
+        loading.value[symbol] = false;
+    }
+    return {quotes, loading, fetchQuote};
 });
