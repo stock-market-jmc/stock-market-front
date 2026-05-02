@@ -4,7 +4,7 @@ import SelectGeneric from "@/components/common/SelectGeneric.vue";
 import {ref} from "vue";
 import {storeToRefs} from "pinia";
 import type AssetInterface from "@/types/AssetInterface.ts";
-import CheckGeneric from "@/components/common/CheckGenerick.vue";
+import LabeledCheckGeneric from "@/components/common/LabeledCheckGeneric.vue";
 import type {SelectOption} from "@/types/SelectOption.ts";
 import {useSelectAssetsStore} from "@/stores/AlphaVantage/SelectAssetsStore.ts";
 
@@ -38,10 +38,12 @@ const onClick = (clicked: boolean) => {
       select-class="bg-green-50 text-green-700 font-medium hover:bg-green-100"
   >
     <div class="sticky bottom-0 bg-white border-t border-gray-200 px-4 py-2 text-sm text-gray-500">
-      <CheckGeneric
+      <LabeledCheckGeneric
           label="Close on select"
-          type="space-between"
-          @clicked="onClick"
+          v-model="closeOnClick"
+          wrapper-class="flex justify-between items-center px-3 py-2 rounded-lg hover:bg-gray-50"
+          label-class="text-sm text-gray-700"
+          checkbox-class="h-4 w-4 accent-green-600 cursor-pointer"
       />
     </div>
   </SelectGeneric>
