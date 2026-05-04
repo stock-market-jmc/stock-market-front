@@ -4,7 +4,8 @@ import HomePage from '@/pages/HomePage.vue';
 import OperationPage from "@/pages/OperationPage.vue";
 import {VALID_OPERATIONS} from "@/constants/operations.ts";
 
-const operationsPattern = VALID_OPERATIONS.join('|')
+const slugs = VALID_OPERATIONS.map(operation => operation.slug);
+const operationsPattern = slugs.join('|');
 
 const routes = [
     {
