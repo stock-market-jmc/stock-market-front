@@ -3,19 +3,19 @@
 import SelectGeneric from "@/components/common/SelectGeneric.vue";
 import {ref} from "vue";
 import {storeToRefs} from "pinia";
-import type AssetInterface from "@/types/AssetInterface.ts";
+import type TickerInterface from "@/types/TickerInterface.ts";
 import LabeledCheckGeneric from "@/components/common/LabeledCheckGeneric.vue";
 import type {SelectOption} from "@/types/SelectOption.ts";
 import {useSelectAssetsStore} from "@/stores/AlphaVantage/SelectAssetsStore.ts";
 
 const emit = defineEmits<{
-  'selectedAsset': [ SelectOption<AssetInterface>]
+  'selectedAsset': [ SelectOption<TickerInterface>]
 }>()
 
 const selectAssetsStore = useSelectAssetsStore()
 
 const {selectAssets, selectedAsset} = storeToRefs(selectAssetsStore)
-const onSelectOption = (selectedAsset: SelectOption<AssetInterface>) => {
+const onSelectOption = (selectedAsset: SelectOption<TickerInterface>) => {
   emit('selectedAsset', selectedAsset)
 }
 

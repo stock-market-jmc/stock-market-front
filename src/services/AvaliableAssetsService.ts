@@ -1,31 +1,31 @@
-import type AssetInterface from "@/types/AssetInterface.ts";
+import type TickerInterface from "@/types/TickerInterface.ts";
 export default class AvailableAssetsService {
 
-    public async getAvailableAssets(): Promise<AssetInterface[]> {
+    public async getAvailableAssets(): Promise<TickerInterface[]> {
          return [
-             { symbol: 'AAPL', name: 'Apple Inc' },
-             { symbol: 'MSFT', name: 'Microsoft Corporation' },
-             { symbol: 'GOOG', name: 'Alphabet Class C' },
-             { symbol: 'AMZN', name: 'Amazon.com Inc' },
-             { symbol: 'NVDA', name: 'NVIDIA Corporation' },
-             { symbol: 'META', name: 'Meta Platforms Inc' },
-             { symbol: 'TSLA', name: 'Tesla Inc' },
-             { symbol: 'TM', name: 'Toyota Motor Corporation' },
-             { symbol: 'XOM', name: 'Exxon Mobil Corporation' },
-             { symbol: 'SHEL', name: 'Shell plc' },
-             { symbol: 'JPM', name: 'JPMorgan Chase & Co' },
-             { symbol: 'GS', name: 'Goldman Sachs Group Inc' },
-             { symbol: 'V', name: 'Visa Inc' },
-             { symbol: 'KO', name: 'Coca-Cola Company' },
-             { symbol: 'PEP', name: 'PepsiCo Inc' },
-             { symbol: 'WMT', name: 'Walmart Inc' },
-             { symbol: 'NKE', name: 'Nike Inc' },
+             { symbol: 'AAPL', companyName: 'Apple Inc' },
+             { symbol: 'MSFT', companyName: 'Microsoft Corporation' },
+             { symbol: 'GOOG', companyName: 'Alphabet Class C' },
+             { symbol: 'AMZN', companyName: 'Amazon.com Inc' },
+             { symbol: 'NVDA', companyName: 'NVIDIA Corporation' },
+             { symbol: 'META', companyName: 'Meta Platforms Inc' },
+             { symbol: 'TSLA', companyName: 'Tesla Inc' },
+             { symbol: 'TM', companyName: 'Toyota Motor Corporation' },
+             { symbol: 'XOM', companyName: 'Exxon Mobil Corporation' },
+             { symbol: 'SHEL', companyName: 'Shell plc' },
+             { symbol: 'JPM', companyName: 'JPMorgan Chase & Co' },
+             { symbol: 'GS', companyName: 'Goldman Sachs Group Inc' },
+             { symbol: 'V', companyName: 'Visa Inc' },
+             { symbol: 'KO', companyName: 'Coca-Cola Company' },
+             { symbol: 'PEP', companyName: 'PepsiCo Inc' },
+             { symbol: 'WMT', companyName: 'Walmart Inc' },
+             { symbol: 'NKE', companyName: 'Nike Inc' },
 
             // Spain
-             { symbol: 'ITX.MC', name: 'Inditex' },
-             { symbol: 'SAN.MC', name: 'Banco Santander' },
-             { symbol: 'BBVA.MC', name: 'BBVA' },
-             { symbol: 'IBE.MC', name: 'Iberdrola' },
+             { symbol: 'ITX.MC', companyName: 'Inditex' },
+             { symbol: 'SAN.MC', companyName: 'Banco Santander' },
+             { symbol: 'BBVA.MC', companyName: 'BBVA' },
+             { symbol: 'IBE.MC', companyName: 'Iberdrola' },
         ];
     }
 }

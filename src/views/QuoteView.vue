@@ -5,7 +5,7 @@ import SelectAssets from "@/components/AlphaVantage/SelectAssets.vue";
 import {useAvailableAssetsStore} from "@/stores/AlphaVantage/AvailableAssetsStore.ts";
 import {useSelectAssetsStore} from "@/stores/AlphaVantage/SelectAssetsStore.ts";
 import type {SelectOption} from "@/types/SelectOption.ts";
-import type AssetInterface from "@/types/AssetInterface.ts";
+import type TickerInterface from "@/types/TickerInterface.ts";
 
 defineProps<{
   title: string
@@ -18,15 +18,15 @@ const availableAssetsStore = useAvailableAssetsStore()
 const selectedAssets = computed(() => {
   return selectAssetsStore.selectAssets.filter(asset => {
     return asset.selected === true
-  }) as SelectOption<AssetInterface>[]
+  }) as SelectOption<TickerInterface>[]
 });
 
-const changeStatus = (assetSelected: SelectOption<AssetInterface>) => {
+const changeStatus = (assetSelected: SelectOption<TickerInterface>) => {
   selectAssetsStore.changeStatus(assetSelected)
 }
 
-function onRemoveQuote(asset: AssetInterface) {
-  const selectedAsset = {label: asset.name, value: asset, selected: false} as SelectOption<AssetInterface>
+function onRemoveQuote(asset: TickerInterface) {
+  const selectedAsset = {label: asset.companyName, value: asset, selected: false} as SelectOption<TickerInterface>
   selectAssetsStore.changeStatus(selectedAsset)
 }
 

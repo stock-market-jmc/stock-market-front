@@ -1,17 +1,17 @@
 import {defineStore} from "pinia";
-import GlobalQuoteService from "@/services/GlobalQuoteService.ts";
+import QuoteService from "@/services/QuoteService.ts";
 import {ref} from "vue";
-import type GlobalQuoteInterface from "@/types/AlphaVantage/GlobalQuoteInterface.ts";
-import type AssetInterface from "@/types/AssetInterface.ts";
+import type QuoteInterface from "@/types/AlphaVantage/QuoteInterface.ts";
+import type TickerInterface from "@/types/TickerInterface.ts";
 
 export const useQuoteStore = defineStore("quoteStore", () => {
-    const service = new GlobalQuoteService();
+    const service = new QuoteService();
 
-    const quotes = ref<Record<string, GlobalQuoteInterface>>({});
+    const quotes = ref<Record<string, QuoteInterface>>({});
     const loadings = ref<Record<string, boolean>>({});
 
-    const fetchQuote = async (asset: AssetInterface) => {
-        const symbol = asset.symbol;
+    const fetchQuote = async (ticker: TickerInterface) => {
+        const symbol = ticker.symbol;
 
         loadings.value[symbol] = true;
 
@@ -19,7 +19,7 @@ export const useQuoteStore = defineStore("quoteStore", () => {
             loadings.value[symbol] = false;
             return quotes.value[symbol];
         }
-        const quote = await service.getGlobalQuote(asset);
+        const quote = await service.getQuote(ticker);
         quotes.value[symbol] = quote;
         loadings.value[symbol] = false;
 
