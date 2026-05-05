@@ -2,8 +2,8 @@
 import {computed, onBeforeMount} from "vue";
 import GlobalQuoteCard from "@/components/AlphaVantage/GlobalQuoteCard.vue";
 import SelectAssets from "@/components/AlphaVantage/SelectAssets.vue";
-import {useAvailableAssetsStore} from "@/stores/AlphaVantage/AvailableAssetsStore.ts";
-import {useSelectAssetsStore} from "@/stores/AlphaVantage/SelectAssetsStore.ts";
+import {useAvailableTickersStore} from "@/stores/AlphaVantage/AvailableAssetsStore.ts";
+import {useSelectTickersStore} from "@/stores/AlphaVantage/SelectAssetsStore.ts";
 import type {SelectOption} from "@/types/SelectOption.ts";
 import type TickerInterface from "@/types/TickerInterface.ts";
 
@@ -12,28 +12,28 @@ defineProps<{
 }>()
 
 
-const selectAssetsStore = useSelectAssetsStore()
-const availableAssetsStore = useAvailableAssetsStore()
+const selectTickersStore = useSelectTickersStore()
+const availableTickersStore = useAvailableTickersStore()
 
-const selectedAssets = computed(() => {
-  return selectAssetsStore.selectAssets.filter(asset => {
-    return asset.selected === true
+const selectedTickers = computed(() => {
+  return selectTickersStore.selectAssets.filter(ticker => {
+    return ticker.selected === true
   }) as SelectOption<TickerInterface>[]
 });
 
-const changeStatus = (assetSelected: SelectOption<TickerInterface>) => {
-  selectAssetsStore.changeStatus(assetSelected)
+const changeStatus = (tickerSelected: SelectOption<TickerInterface>) => {
+  selectTickersStore.changeStatus(tickerSelected)
 }
 
-function onRemoveQuote(asset: TickerInterface) {
-  const selectedAsset = {label: asset.companyName, value: asset, selected: false} as SelectOption<TickerInterface>
-  selectAssetsStore.changeStatus(selectedAsset)
+function onRemoveQuote(ticker: TickerInterface) {
+  const selectedTicker = {label: ticker.companyName, value: ticker, selected: false} as SelectOption<TickerInterface>
+  selectTickersStore.changeStatus(selectedTicker)
 }
 
 onBeforeMount(async () => {
-  await availableAssetsStore.fetchAvailableAssets();
-  const availableAssets = availableAssetsStore.availableAssets
-  await selectAssetsStore.fetchSelectAssets(availableAssets)
+  await availableTickersStore.fetchAvailableTickers();
+  const availableTickers = availableTickersStore.availableTickers
+  await selectTickersStore.fetchSelectTickers(availableTickers)
 })
 </script>
 
@@ -52,7 +52,7 @@ onBeforeMount(async () => {
     </div>
     <div class="flex-2 grid grid-cols-1 md:grid-cols-2 gap-3">
       <GlobalQuoteCard
-          v-for="selectedAsset in selectedAssets"
+          v-for="selectedAsset in selectedTickers"
           :key="selectedAsset.value.symbol"
           :asset-interface="selectedAsset.value"
           @remove-quote="onRemoveQuote"

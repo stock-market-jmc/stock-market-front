@@ -9,5 +9,6 @@ export default interface QuoteInterface {
     open: number,
     previousClose: number,
     lastUpdate: string,
+    fetchedAt: Date
 }
 

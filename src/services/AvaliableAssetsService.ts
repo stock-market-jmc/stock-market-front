@@ -20,12 +20,6 @@ export default class AvailableAssetsService {
              { symbol: 'PEP', companyName: 'PepsiCo Inc' },
              { symbol: 'WMT', companyName: 'Walmart Inc' },
              { symbol: 'NKE', companyName: 'Nike Inc' },
-
-            // Spain
-             { symbol: 'ITX.MC', companyName: 'Inditex' },
-             { symbol: 'SAN.MC', companyName: 'Banco Santander' },
-             { symbol: 'BBVA.MC', companyName: 'BBVA' },
-             { symbol: 'IBE.MC', companyName: 'Iberdrola' },
         ];
     }
 }

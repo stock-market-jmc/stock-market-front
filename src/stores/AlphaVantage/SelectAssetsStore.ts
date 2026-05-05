@@ -8,13 +8,13 @@ const EMPTY_ASSET = {symbol: '', companyName: 'Select an asset'} as TickerInterf
 const EMPTY_SELECT_OPTION = {label: 'Select an asset', value: EMPTY_ASSET, selected: false} as SelectOption<TickerInterface>
 
 
-export const useSelectAssetsStore = defineStore("selectAssetsStore", () => {
+export const useSelectTickersStore = defineStore("selectAssetsStore", () => {
 
-    const selectedAsset = ref<SelectOption<TickerInterface>>(EMPTY_SELECT_OPTION)
-    const selectAssets = ref<SelectOption<TickerInterface>[]>([]);
+    const selectedTicker = ref<SelectOption<TickerInterface>>(EMPTY_SELECT_OPTION)
+    const selectTickers = ref<SelectOption<TickerInterface>[]>([]);
 
-    const fetchSelectAssets = async (availableAssets: TickerInterface[]) => {
-        selectAssets.value = availableAssets.map(asset => ({
+    const fetchSelectAssets = async (availableTickers: TickerInterface[]) => {
+        selectTickers.value = availableTickers.map(asset => ({
             label: asset.companyName,
             value: asset,
             selected: false
@@ -22,13 +22,13 @@ export const useSelectAssetsStore = defineStore("selectAssetsStore", () => {
     }
 
     const changeStatus = (assetSelected: SelectOption<TickerInterface>) => {
-        const option = selectAssets.value.find(
+        const option = selectTickers.value.find(
             o => o.value.symbol === assetSelected.value.symbol
         )
 
         if (!option) return
-        selectedAsset.value = option
+        selectedTicker.value = option
         option.selected = !option.selected
     }
-    return {selectAssets, fetchSelectAssets, changeStatus, selectedAsset};
+    return {selectAssets: selectTickers, fetchSelectTickers: fetchSelectAssets, changeStatus, selectedAsset: selectedTicker};
 });

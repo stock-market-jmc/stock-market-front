@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type QuoteInterface from "@/types/AlphaVantage/QuoteInterface.ts";
 import {computed, onBeforeMount, ref} from "vue";
-import {useQuoteStore} from "@/stores/AlphaVantage/GlobalQuoteStore.ts";
+import {useQuoteStore} from "@/stores/AlphaVantage/QuoteStore.ts";
 import type TickerInterface from "@/types/TickerInterface.ts";
 import {storeToRefs} from "pinia";
 

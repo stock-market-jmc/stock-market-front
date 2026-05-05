@@ -15,10 +15,10 @@ export default class QuoteService {
         open: 0,
         previousClose: 0,
         lastUpdate: 'UNKNOWN',
+        fetchedAt: new Date()
     })
     public getQuote: (ticker: TickerInterface) => Promise<QuoteInterface> = async (ticker: TickerInterface) => {
 
-        debugger
         const url = QUOTE_API_URL + ticker.symbol
         try {
             const {data} = await alphaVantageApi.get(url)
@@ -40,6 +40,7 @@ export default class QuoteService {
                 open: quote.open,
                 previousClose: quote.previous_close,
                 lastUpdate: quote.last_update,
+                fetchedAt: new Date()
             } as QuoteInterface
         } catch (e: unknown) {
             const message = e instanceof Error ? e.message : "Unknown error"

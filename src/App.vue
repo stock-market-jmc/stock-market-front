@@ -11,7 +11,7 @@ import NavigationView from "@/views/NavigationView.vue";
       </div>
     </nav>
 
-    <main class="h-[90%] overflow-y-scroll">
+    <main class="h-[90%] md:overflow-y-scroll [overflow-y:overlay]">
       <div class="w-93.75 mx-auto my-2 px-2
       md:px-4 md:w-300 md:my-6">
         <router-view/>
