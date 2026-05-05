@@ -3,7 +3,7 @@ import {computed, onBeforeMount} from "vue";
 import QuoteCard from "@/components/AlphaVantage/QuoteCard.vue";
 import SelectTickers from "@/components/AlphaVantage/SelectTickers.vue";
 import {useAvailableTickersStore} from "@/stores/AlphaVantage/AvailableAssetsStore.ts";
-import {useSelectTickersStore} from "@/stores/AlphaVantage/SelectAssetsStore.ts";
+import {useSelectTickersStore} from "@/stores/AlphaVantage/SelectTickersStore.ts";
 import type {SelectOption} from "@/types/SelectOption.ts";
 import type TickerInterface from "@/types/TickerInterface.ts";
 import {useQuoteStore} from "@/stores/AlphaVantage/QuoteStore.ts";
@@ -39,7 +39,7 @@ function onRemoveQuote(ticker: TickerInterface) {
 onBeforeMount(async () => {
   await availableTickersStore.fetchAvailableTickers();
   const availableTickers = availableTickersStore.availableTickers
-  await selectTickersStore.fetchSelectTickers(availableTickers)
+  await selectTickersStore.buildSelectTickers(availableTickers)
 })
 </script>
 

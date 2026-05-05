@@ -8,12 +8,12 @@ const EMPTY_TICKER = {symbol: '', companyName: 'Select a company'} as TickerInte
 const EMPTY_SELECT_OPTION = {label: 'Select an company', value: EMPTY_TICKER, selected: false} as SelectOption<TickerInterface>
 
 
-export const useSelectTickersStore = defineStore("selectAssetsStore", () => {
+export const useSelectTickersStore = defineStore("selectTickersStore", () => {
 
     const selectedTicker = ref<SelectOption<TickerInterface>>(EMPTY_SELECT_OPTION)
     const selectTickers = ref<SelectOption<TickerInterface>[]>([]);
 
-    const fetchSelectTickers = async (availableTickers: TickerInterface[]) => {
+    const buildSelectTickers = async (availableTickers: TickerInterface[]) => {
         selectTickers.value = availableTickers.map(ticker => ({
             label: ticker.companyName,
             value: ticker,
@@ -30,5 +30,5 @@ export const useSelectTickersStore = defineStore("selectAssetsStore", () => {
         selectedTicker.value = option
         option.selected = !option.selected
     }
-    return {selectTickers, fetchSelectTickers, changeStatus, selectedTicker};
+    return {selectTickers, buildSelectTickers , changeStatus, selectedTicker};
 });
