@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import {computed, onBeforeMount} from "vue";
-import GlobalQuoteCard from "@/components/AlphaVantage/GlobalQuoteCard.vue";
-import SelectAssets from "@/components/AlphaVantage/SelectAssets.vue";
+import QuoteCard from "@/components/AlphaVantage/QuoteCard.vue";
+import SelectTickers from "@/components/AlphaVantage/SelectTickers.vue";
 import {useAvailableTickersStore} from "@/stores/AlphaVantage/AvailableAssetsStore.ts";
 import {useSelectTickersStore} from "@/stores/AlphaVantage/SelectAssetsStore.ts";
 import type {SelectOption} from "@/types/SelectOption.ts";
@@ -16,7 +16,7 @@ const selectTickersStore = useSelectTickersStore()
 const availableTickersStore = useAvailableTickersStore()
 
 const selectedTickers = computed(() => {
-  return selectTickersStore.selectAssets.filter(ticker => {
+  return selectTickersStore.selectTickers.filter(ticker => {
     return ticker.selected === true
   }) as SelectOption<TickerInterface>[]
 });
@@ -46,15 +46,15 @@ onBeforeMount(async () => {
         sticky top-2 self-start
         md:top-6"
     >
-      <SelectAssets
-          @selected-asset="changeStatus"/>
+      <SelectTickers
+          @selected-ticker="changeStatus"/>
 
     </div>
     <div class="flex-2 grid grid-cols-1 md:grid-cols-2 gap-3">
-      <GlobalQuoteCard
+      <QuoteCard
           v-for="selectedAsset in selectedTickers"
           :key="selectedAsset.value.symbol"
-          :asset-interface="selectedAsset.value"
+          :ticker-interface="selectedAsset.value"
           @remove-quote="onRemoveQuote"
       />
     </div>

@@ -4,8 +4,8 @@ import {ref} from "vue";
 import type TickerInterface from "@/types/TickerInterface.ts";
 import type {SelectOption} from "@/types/SelectOption.ts";
 
-const EMPTY_ASSET = {symbol: '', companyName: 'Select an asset'} as TickerInterface
-const EMPTY_SELECT_OPTION = {label: 'Select an asset', value: EMPTY_ASSET, selected: false} as SelectOption<TickerInterface>
+const EMPTY_TICKER = {symbol: '', companyName: 'Select a company'} as TickerInterface
+const EMPTY_SELECT_OPTION = {label: 'Select an company', value: EMPTY_TICKER, selected: false} as SelectOption<TickerInterface>
 
 
 export const useSelectTickersStore = defineStore("selectAssetsStore", () => {
@@ -13,22 +13,22 @@ export const useSelectTickersStore = defineStore("selectAssetsStore", () => {
     const selectedTicker = ref<SelectOption<TickerInterface>>(EMPTY_SELECT_OPTION)
     const selectTickers = ref<SelectOption<TickerInterface>[]>([]);
 
-    const fetchSelectAssets = async (availableTickers: TickerInterface[]) => {
-        selectTickers.value = availableTickers.map(asset => ({
-            label: asset.companyName,
-            value: asset,
+    const fetchSelectTickers = async (availableTickers: TickerInterface[]) => {
+        selectTickers.value = availableTickers.map(ticker => ({
+            label: ticker.companyName,
+            value: ticker,
             selected: false
         }))
     }
 
-    const changeStatus = (assetSelected: SelectOption<TickerInterface>) => {
+    const changeStatus = (tickerSelected: SelectOption<TickerInterface>) => {
         const option = selectTickers.value.find(
-            o => o.value.symbol === assetSelected.value.symbol
+            o => o.value.symbol === tickerSelected.value.symbol
         )
 
         if (!option) return
         selectedTicker.value = option
         option.selected = !option.selected
     }
-    return {selectAssets: selectTickers, fetchSelectTickers: fetchSelectAssets, changeStatus, selectedAsset: selectedTicker};
+    return {selectTickers, fetchSelectTickers, changeStatus, selectedTicker};
 });

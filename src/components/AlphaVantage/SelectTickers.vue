@@ -9,14 +9,14 @@ import type {SelectOption} from "@/types/SelectOption.ts";
 import {useSelectTickersStore} from "@/stores/AlphaVantage/SelectAssetsStore.ts";
 
 const emit = defineEmits<{
-  'selectedAsset': [ SelectOption<TickerInterface>]
+  'selectedTicker': [ SelectOption<TickerInterface>]
 }>()
 
-const selectAssetsStore = useSelectTickersStore()
+const selectTickersStore = useSelectTickersStore()
 
-const {selectAssets, selectedAsset} = storeToRefs(selectAssetsStore)
-const onSelectOption = (selectedAsset: SelectOption<TickerInterface>) => {
-  emit('selectedAsset', selectedAsset)
+const {selectTickers, selectedTicker} = storeToRefs(selectTickersStore)
+const onSelectOption = (selectedTicker: SelectOption<TickerInterface>) => {
+  emit('selectedTicker', selectedTicker)
 }
 
 const closeOnClick = ref(true)
@@ -30,8 +30,8 @@ const onClick = (clicked: boolean) => {
 <template>
 
   <SelectGeneric
-      :selected-option="selectedAsset"
-      :options="selectAssets"
+      :selected-option="selectedTicker"
+      :options="selectTickers"
       @option-selected="onSelectOption"
       :close-onclick="closeOnClick"
       @close-on-click="onClick"

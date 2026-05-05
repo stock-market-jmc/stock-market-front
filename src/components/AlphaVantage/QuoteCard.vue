@@ -6,11 +6,11 @@ import type TickerInterface from "@/types/TickerInterface.ts";
 import {storeToRefs} from "pinia";
 
 const props = defineProps<{
-  assetInterface: TickerInterface
+  tickerInterface: TickerInterface
 }>();
 
 const emits = defineEmits<{
-  removeQuote: [asset: TickerInterface]
+  removeQuote: [ticker: TickerInterface]
 }>()
 
 const globalQuoteStore = useQuoteStore()
@@ -18,16 +18,16 @@ const {loadings} = storeToRefs(globalQuoteStore)
 
 
 const loading = computed(() =>
-    loadings.value[props.assetInterface.symbol]
+    loadings.value[props.tickerInterface.symbol]
 )
 
 const onClick = () => {
-  emits('removeQuote', props.assetInterface)
+  emits('removeQuote', props.tickerInterface)
 }
 
 const globalQuote = ref<QuoteInterface>()
 onBeforeMount(async () => {
-  globalQuote.value = await globalQuoteStore.fetchQuote(props.assetInterface)
+  globalQuote.value = await globalQuoteStore.fetchQuote(props.tickerInterface)
 })
 
 </script>
@@ -39,8 +39,8 @@ onBeforeMount(async () => {
     <div v-if="loading">Loading...</div>
     <div v-else-if="globalQuote" class="flex flex-col gap-2">
       <div class="text-2xl flex justify-between">
-        <h2>{{ assetInterface.companyName }}</h2>
-        <h2>{{ assetInterface.symbol }}</h2>
+        <h2>{{ tickerInterface.companyName }}</h2>
+        <h2>{{ tickerInterface.symbol }}</h2>
       </div>
 
 

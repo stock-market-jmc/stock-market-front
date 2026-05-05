@@ -1,16 +1,16 @@
 import {defineStore} from "pinia";
 
-import AvailableAssetsService from "@/services/AvaliableAssetsService.ts";
+import AvailableTickersService from "@/services/AvaliableTickersService.ts";
 import {ref} from "vue";
 import type TickerInterface from "@/types/TickerInterface.ts";
 
 export const useAvailableTickersStore = defineStore("availableAssetsStore", () => {
-    const service = new AvailableAssetsService();
+    const service = new AvailableTickersService();
 
-    const availableAssets = ref<TickerInterface[]>([]);
+    const availableTickers = ref<TickerInterface[]>([]);
     const fetchAvailableAssets = async () => {
-        availableAssets.value = await service.getAvailableAssets();
+        availableTickers.value = await service.getAvailableTickers();
     }
 
-    return {fetchAvailableTickers: fetchAvailableAssets, availableTickers: availableAssets};
+    return {fetchAvailableTickers: fetchAvailableAssets, availableTickers};
 });
