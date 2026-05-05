@@ -10,6 +10,8 @@ export const useQuoteStore = defineStore("quoteStore", () => {
         const quotes = ref<Record<string, QuoteInterface>>({});
         const loadings = ref<Record<string, boolean>>({});
 
+        const orderedQuotes = ref<TickerInterface[]>([]);
+
         const fetchQuote = async (ticker: TickerInterface) => {
             const symbol = ticker.symbol;
 
@@ -45,7 +47,17 @@ export const useQuoteStore = defineStore("quoteStore", () => {
 
             return true
         }
-        return {quotes, loadings, fetchQuote};
+
+        const addToOrder = (ticker: TickerInterface) => {
+            if (!orderedQuotes.value.includes(ticker)) {
+                orderedQuotes.value.push(ticker);
+            }
+        };
+
+        const removeFromOrder = (ticker: TickerInterface) => {
+            orderedQuotes.value = orderedQuotes.value.filter(sym => sym !== ticker);
+        };
+        return {quotes, loadings, fetchQuote, addToOrder, removeFromOrder, orderedQuotes};
     },
     {
         persist: {

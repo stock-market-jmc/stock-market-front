@@ -23,8 +23,7 @@ export default class QuoteService {
         try {
             const {data} = await alphaVantageApi.get(url)
 
-            if (data.status !== 'SUCCESS') {
-                console.log(data)
+            if (data.status !== 'SUCCESS' && data.status !== 'UPDATE') {
                 return this.getDefaultValue(ticker)
             }
 

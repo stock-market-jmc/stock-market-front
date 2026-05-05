@@ -6,6 +6,7 @@ import {useAvailableTickersStore} from "@/stores/AlphaVantage/AvailableAssetsSto
 import {useSelectTickersStore} from "@/stores/AlphaVantage/SelectAssetsStore.ts";
 import type {SelectOption} from "@/types/SelectOption.ts";
 import type TickerInterface from "@/types/TickerInterface.ts";
+import {useQuoteStore} from "@/stores/AlphaVantage/QuoteStore.ts";
 
 defineProps<{
   title: string
@@ -14,19 +15,24 @@ defineProps<{
 
 const selectTickersStore = useSelectTickersStore()
 const availableTickersStore = useAvailableTickersStore()
+const quoteStore = useQuoteStore()
 
-const selectedTickers = computed(() => {
-  return selectTickersStore.selectTickers.filter(ticker => {
-    return ticker.selected === true
-  }) as SelectOption<TickerInterface>[]
-});
+const orderedQuotes = computed(() => {
+  return quoteStore.orderedQuotes as TickerInterface[]
+})
 
 const changeStatus = (tickerSelected: SelectOption<TickerInterface>) => {
   selectTickersStore.changeStatus(tickerSelected)
+  if(tickerSelected.selected) {
+    quoteStore.addToOrder(tickerSelected.value)
+  }else {
+    quoteStore.removeFromOrder(tickerSelected.value)
+  }
 }
 
 function onRemoveQuote(ticker: TickerInterface) {
   const selectedTicker = {label: ticker.companyName, value: ticker, selected: false} as SelectOption<TickerInterface>
+  quoteStore.removeFromOrder(ticker)
   selectTickersStore.changeStatus(selectedTicker)
 }
 
@@ -52,9 +58,9 @@ onBeforeMount(async () => {
     </div>
     <div class="flex-2 grid grid-cols-1 md:grid-cols-2 gap-3">
       <QuoteCard
-          v-for="selectedAsset in selectedTickers"
-          :key="selectedAsset.value.symbol"
-          :ticker-interface="selectedAsset.value"
+          v-for="quote in orderedQuotes"
+          :key="quote.symbol"
+          :ticker-interface="quote"
           @remove-quote="onRemoveQuote"
       />
     </div>
