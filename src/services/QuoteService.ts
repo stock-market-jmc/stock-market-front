@@ -23,23 +23,23 @@ export default class QuoteService {
         try {
             const {data} = await alphaVantageApi.get(url)
 
-            if (data.status !== 'SUCCESS' && data.status !== 'UPDATE') {
+            if (data.status !== 'SUCCESS') {
                 return this.getDefaultValue(ticker)
             }
 
             const quote = data.quote
             return {
                 symbol: quote.symbol,
-                companyName: quote.company_name,
-                currentPrice: quote.current_price,
-                priceChange: quote.price_change,
-                changePercent: quote.change_percent,
+                companyName: quote.companyName,
+                currentPrice: quote.currentPrice,
+                priceChange: quote.priceChange,
+                changePercent: quote.changePercent,
                 high: quote.high,
                 low: quote.low,
                 open: quote.open,
-                previousClose: quote.previous_close,
-                lastUpdate: quote.last_update,
-                fetchedAt: new Date()
+                previousClose: quote.previousClose,
+                lastUpdate: quote.lastUpdate,
+                fetchedAt: quote.fetchedAt
             } as QuoteInterface
         } catch (e: unknown) {
             const message = e instanceof Error ? e.message : "Unknown error"
