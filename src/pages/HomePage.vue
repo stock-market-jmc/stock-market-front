@@ -4,12 +4,15 @@ import HomeCard from "@/components/HomeCard.vue";
 import {useOperations} from "@/stores/OperationsStore.ts";
 import {useMainStore} from "@/stores/MainStore.ts";
 import {onBeforeMount} from "vue";
+import {useRoute} from "vue-router";
 
 const operations = useOperations().operations
 const mainStore = useMainStore()
 
+const route = useRoute()
+
 onBeforeMount(() => {
-  mainStore.setPageTitle('Home')
+  mainStore.setPageTitle(route.meta.title)
 })
 
 </script>

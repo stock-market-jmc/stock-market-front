@@ -6,7 +6,7 @@ import {storeToRefs} from "pinia";
 import type TickerInterface from "@/types/TickerInterface.ts";
 import LabeledCheckGeneric from "@/components/common/LabeledCheckGeneric.vue";
 import type {SelectOption} from "@/types/SelectOption.ts";
-import {useSelectTickersStore} from "@/stores/AlphaVantage/SelectTickersStore.ts";
+import {useSelectTickersStore} from "@/stores/FinnHub/SelectTickersStore.ts";
 
 const emit = defineEmits<{
   'selectedTicker': [ SelectOption<TickerInterface>]

@@ -1,6 +1,6 @@
 import {defineStore} from "pinia";
 
-import AvailableTickersService from "@/services/AvaliableTickersService.ts";
+import AvailableTickersService from "@/services/FinnHub/AvaliableTickersService.ts";
 import {ref} from "vue";
 import type TickerInterface from "@/types/TickerInterface.ts";
 

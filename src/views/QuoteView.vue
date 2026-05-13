@@ -2,11 +2,11 @@
 import {computed, onBeforeMount} from "vue";
 import QuoteCard from "@/components/AlphaVantage/QuoteCard.vue";
 import SelectTickers from "@/components/AlphaVantage/SelectTickers.vue";
-import {useAvailableTickersStore} from "@/stores/AlphaVantage/AvailableAssetsStore.ts";
-import {useSelectTickersStore} from "@/stores/AlphaVantage/SelectTickersStore.ts";
+import {useAvailableTickersStore} from "@/stores/FinnHub/AvailableAssetsStore.ts";
+import {useSelectTickersStore} from "@/stores/FinnHub/SelectTickersStore.ts";
 import type {SelectOption} from "@/types/SelectOption.ts";
 import type TickerInterface from "@/types/TickerInterface.ts";
-import {useQuoteStore} from "@/stores/AlphaVantage/QuoteStore.ts";
+import {useQuoteStore} from "@/stores/FinnHub/QuoteStore.ts";
 
 defineProps<{
   title: string

@@ -1,5 +1,5 @@
 import type TickerInterface from "@/types/TickerInterface.ts";
-import {alphaVantageApi} from "@/api/AlphaVantageApi.ts";
+import {stockMarket} from "@/api/StockMarket.ts";
 import type QuoteInterface from "@/types/AlphaVantage/QuoteInterface.ts";
 
 const QUOTE_API_URL: string = 'stocks-market-api/quote/';
@@ -21,7 +21,7 @@ export default class QuoteService {
 
         const url = QUOTE_API_URL + ticker.symbol
         try {
-            const {data} = await alphaVantageApi.get(url)
+            const {data} = await stockMarket.get(url)
 
             if (data.status !== 'SUCCESS') {
                 return this.getDefaultValue(ticker)

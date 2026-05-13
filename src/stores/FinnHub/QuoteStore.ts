@@ -1,5 +1,5 @@
 import {defineStore} from "pinia";
-import QuoteService from "@/services/QuoteService.ts";
+import QuoteService from "@/services/FinnHub/QuoteService.ts";
 import {ref} from "vue";
 import type QuoteInterface from "@/types/AlphaVantage/QuoteInterface.ts";
 import type TickerInterface from "@/types/TickerInterface.ts";

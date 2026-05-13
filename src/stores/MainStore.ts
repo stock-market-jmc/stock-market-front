@@ -5,7 +5,7 @@ export const useMainStore = defineStore('mainStore', () => {
     const pageTitle = ref('Unknown')
 
     const setPageTitle = (title: string) => {
-        pageTitle.value = title
+        pageTitle.value = title || 'Unknown'
     }
 
     return {pageTitle, setPageTitle}
