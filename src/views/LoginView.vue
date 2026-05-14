@@ -4,6 +4,7 @@ import FormGeneric from "@/components/common/FormGeneric.vue";
 import InputGeneric from "@/components/common/InputGeneric.vue";
 import {useAuthStore} from "@/stores/AuthStore.ts";
 import {computed, ref} from "vue";
+import router from "@/router";
 
 const authStore = useAuthStore()
 const email = ref('');
@@ -12,6 +13,7 @@ const loading = computed(()=> authStore.loading)
 
 const onSubmit = () => {
   authStore.login(email.value,password.value)
+  router.push('/')
 }
 </script>
 

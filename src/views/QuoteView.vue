@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import {computed, onBeforeMount} from "vue";
-import QuoteCard from "@/components/AlphaVantage/QuoteCard.vue";
-import SelectTickers from "@/components/AlphaVantage/SelectTickers.vue";
+import QuoteCard from "@/components/FinnHub/QuoteCard.vue";
+import SelectTickers from "@/components/FinnHub/SelectTickers.vue";
 import {useAvailableTickersStore} from "@/stores/FinnHub/AvailableAssetsStore.ts";
 import {useSelectTickersStore} from "@/stores/FinnHub/SelectTickersStore.ts";
 import type {SelectOption} from "@/types/SelectOption.ts";
@@ -49,8 +49,7 @@ onBeforeMount(async () => {
 
     <div class="
         flex flex-row gap-3 flex-nowrap flex-1
-        sticky top-2 self-start
-        md:top-6"
+        sticky top-16 self-start"
     >
       <SelectTickers
           @selected-ticker="changeStatus"/>

@@ -35,8 +35,8 @@ export default class AuthService {
 
         try {
             const decodedToken: DecodedToken = jwtDecode(token)
-            const expirationDate = new Date(decodedToken.exp * 1000)
-            const issuedDate = new Date(decodedToken.iat * 1000)
+            const expirationDate = decodedToken.exp * 1000
+            const issuedDate = decodedToken.iat
             const email = decodedToken.username
             const roles = decodedToken.roles
 
@@ -49,8 +49,8 @@ export default class AuthService {
 
     getDefaultUser(): UserInterface {
         return {
-            expirationDate: new Date(),
-            issuedDate: new Date(),
+            expirationDate: 0,
+            issuedDate: 0,
             email: '',
             roles: []
         }

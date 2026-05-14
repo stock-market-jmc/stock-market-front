@@ -1,6 +1,6 @@
 export default interface UserInterface {
-    expirationDate: Date,
-    issuedDate: Date,
+    expirationDate: number,
+    issuedDate: number,
     roles: string[],
     email: string,
 }

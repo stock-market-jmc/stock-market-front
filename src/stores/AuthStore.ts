@@ -22,7 +22,11 @@ export const useAuthStore = defineStore('authStore', () => {
         user.value = authService.getDefaultUser();
     };
 
-    return { token, login, logout, user, loading };
+    const isLoggedIn = () => {
+        return token.value !== null && user.value?.expirationDate > Date.now() / 1000;
+    };
+
+    return {token, login, logout, user, loading, isLoggedIn};
 }, {
     persist: {
         key: 'auth-store',
