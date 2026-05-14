@@ -1,7 +1,10 @@
 <script setup lang="ts">
 
+import LoadingSpinner from "@/components/common/LoadingSpinner.vue";
+
 defineProps<{
   title: string
+  loading?: boolean
 }>()
 
 const emit = defineEmits<{
@@ -25,7 +28,10 @@ const handleClick = () => {
       focus:outline-none
       transition-all duration-200 disabled:opacity-60"
   >
-    {{ title }}
+    <LoadingSpinner v-if="loading"/>
+    <span v-else>
+      {{ title }}
+    </span>
   </div>
 </template>
 
