@@ -1,6 +1,6 @@
 import type TickerInterface from "@/types/TickerInterface.ts";
 import {stockMarket} from "@/api/StockMarket.ts";
-import type QuoteInterface from "@/types/AlphaVantage/QuoteInterface.ts";
+import type QuoteInterface from "@/types/FinnHub/QuoteInterface.ts";
 
 const QUOTE_API_URL: string = 'stocks-market-api/quote/';
 export default class QuoteService {

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type QuoteInterface from "@/types/AlphaVantage/QuoteInterface.ts";
+import type QuoteInterface from "@/types/FinnHub/QuoteInterface.ts";
 import {computed, onBeforeMount, ref} from "vue";
 import {useQuoteStore} from "@/stores/FinnHub/QuoteStore.ts";
 import type TickerInterface from "@/types/TickerInterface.ts";

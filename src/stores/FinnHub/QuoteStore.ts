@@ -1,7 +1,7 @@
 import {defineStore} from "pinia";
 import QuoteService from "@/services/FinnHub/QuoteService.ts";
 import {ref} from "vue";
-import type QuoteInterface from "@/types/AlphaVantage/QuoteInterface.ts";
+import type QuoteInterface from "@/types/FinnHub/QuoteInterface.ts";
 import type TickerInterface from "@/types/TickerInterface.ts";
 
 export const useQuoteStore = defineStore("quoteStore", () => {
