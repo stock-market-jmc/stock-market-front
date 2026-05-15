@@ -1,6 +1,6 @@
 <script setup lang="ts">
 
-import LoadingSpinner from "@/components/common/LoadingSpinner.vue";
+import LoadingSpinner from "@/components/common/SVG/LoadingSpinner.vue";
 
 defineProps<{
   title: string

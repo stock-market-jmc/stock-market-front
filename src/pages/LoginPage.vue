@@ -3,7 +3,7 @@
 import LoginView from "@/views/LoginView.vue";
 import {useRoute} from "vue-router";
 import {useMainStore} from "@/stores/MainStore.ts";
-import {onBeforeMount} from "vue";
+import {computed, onBeforeMount, watch} from "vue";
 import {useAuthStore} from "@/stores/AuthStore.ts";
 import router from "@/router";
 
@@ -16,6 +16,13 @@ onBeforeMount(() => {
     router.push('/')
   }
   mainStore.setPageTitle(route.meta.title)
+})
+
+const isLoggedIn = computed(() => authStore.isLoggedIn())
+watch(isLoggedIn, (newVal) => {
+  if (newVal) {
+    router.push('/')
+  }
 })
 
 </script>

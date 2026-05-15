@@ -12,7 +12,7 @@ interface DecodedToken {
     exp: number;
     iat: number;
     roles: string[];
-    username: string;  // o 'userName', según cómo lo genera tu backend
+    username: string;
 }
 export default class AuthService {
 

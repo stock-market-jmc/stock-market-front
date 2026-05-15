@@ -41,11 +41,8 @@ export const useQuoteStore = defineStore("quoteStore", () => {
 
             const fetchedAt = new Date(quote.fetchedAt)
 
-            if (fetchedAt.getTime() < new Date().getTime() - 1000 * 60 * 15) {
-                return false
-            }
+            return fetchedAt.getTime() >= new Date().getTime() - 1000 * 60 * 15;
 
-            return true
         }
 
         const addToOrder = (ticker: TickerInterface) => {
