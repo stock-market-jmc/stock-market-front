@@ -1,6 +1,7 @@
 import type TickerInterface from "@/types/TickerInterface.ts";
 import {stockMarket} from "@/api/StockMarket.ts";
 import type QuoteInterface from "@/types/FinnHub/QuoteInterface.ts";
+import {useAuthStore} from "@/stores/AuthStore.ts";
 
 const QUOTE_API_URL: string = 'stock-market-api/quote/';
 export default class QuoteService {
@@ -20,7 +21,9 @@ export default class QuoteService {
     public getQuote: (ticker: TickerInterface) => Promise<QuoteInterface> = async (ticker: TickerInterface) => {
 
         const url = QUOTE_API_URL + ticker.symbol
+        const authStore = useAuthStore()
         try {
+            stockMarket.defaults.headers.common['Authorization'] = `Bearer ${authStore.token}`
             const {data} = await stockMarket.get(url)
 
             if (data.status !== 'SUCCESS') {
