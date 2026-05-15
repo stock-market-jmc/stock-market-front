@@ -6,6 +6,7 @@ import ButtonGeneric from "@/components/common/ButtonGeneric.vue";
 import LoginIcon from "@/components/common/SVG/LoginIcon.vue";
 import {useAuthStore} from "@/stores/AuthStore.ts";
 import LogoutIcon from "@/components/common/SVG/LogoutIcon.vue";
+import HomeIcon from "@/components/common/SVG/HomeIcon.vue";
 
 const mainStore = useMainStore()
 const authStore = useAuthStore()
@@ -22,6 +23,14 @@ const logout = () => {
 
   <nav class="fixed top-0 left-0 w-full bg-gray-800 z-10 h-16">
     <div class="md:w-300 flex items-center justify-between m-auto h-full px-4">
+      <router-link to="/" class="text-white hover:text-gray-300 transition-colors">
+        <ButtonGeneric
+            title="Home"
+            class="px-6 hidden md:block"
+        />
+        <HomeIcon class="md:hidden inline-flex items-center"/>
+      </router-link>
+
       <h1 class="text-white text-3xl m-0">{{ title }}</h1>
 
       <div v-if="!isLoggedIn" class="hidden md:block">
