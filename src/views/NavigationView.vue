@@ -2,11 +2,11 @@
 
 import {useMainStore} from "@/stores/MainStore.ts";
 import {computed} from "vue";
-import ButtonGeneric from "@/components/common/ButtonGeneric.vue";
 import LoginIcon from "@/components/common/SVG/LoginIcon.vue";
 import {useAuthStore} from "@/stores/AuthStore.ts";
 import LogoutIcon from "@/components/common/SVG/LogoutIcon.vue";
 import HomeIcon from "@/components/common/SVG/HomeIcon.vue";
+import {useRoute, useRouter} from "vue-router";
 
 const mainStore = useMainStore()
 const authStore = useAuthStore()
@@ -14,8 +14,13 @@ const authStore = useAuthStore()
 const title = computed(() => mainStore.pageTitle)
 const isLoggedIn = computed(() => authStore.isLoggedIn())
 
+const route = useRoute();
+const router = useRouter();
 const logout = () => {
   authStore.logout()
+  if (route.meta.requiresAuth === true) {
+    router.replace({name: 'login', query: {redirect: route.fullPath}});
+  }
 }
 </script>
 
