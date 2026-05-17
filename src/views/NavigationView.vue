@@ -6,21 +6,16 @@ import LoginIcon from "@/components/common/SVG/LoginIcon.vue";
 import {useAuthStore} from "@/stores/AuthStore.ts";
 import LogoutIcon from "@/components/common/SVG/LogoutIcon.vue";
 import HomeIcon from "@/components/common/SVG/HomeIcon.vue";
-import {useRoute, useRouter} from "vue-router";
+import {useAuth} from "@/composables/useAuth.ts";
 
 const mainStore = useMainStore()
 const authStore = useAuthStore()
 
 const title = computed(() => mainStore.pageTitle)
 const isLoggedIn = computed(() => authStore.isLoggedIn())
-
-const route = useRoute();
-const router = useRouter();
-const logout = () => {
-  authStore.logout()
-  if (route.meta.requiresAuth === true) {
-    router.replace({name: 'login', query: {redirect: route.fullPath}});
-  }
+const {logout} = useAuth()
+const handleLogout = () => {
+  logout()
 }
 </script>
 
@@ -37,7 +32,7 @@ const logout = () => {
         <router-link v-if="!isLoggedIn" to="/login" class="text-white hover:text-gray-300 transition-colors p-1">
           <LoginIcon />
         </router-link>
-        <span v-else @click="logout" class="text-white hover:text-gray-300 transition-colors cursor-pointer p-1">
+        <span v-else @click="handleLogout" class="text-white hover:text-gray-300 transition-colors cursor-pointer p-1">
           <LogoutIcon />
         </span>
       </div>
