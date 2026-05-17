@@ -20,7 +20,7 @@ const handleLogout = () => {
 </script>
 
 <template>
-  <nav class="fixed top-0 left-0 w-full bg-gray-800 z-10 h-16">
+  <nav class="sticky top-0 w-full bg-gray-800 z-10 h-16 shrink-0">
     <div class="md:w-300 flex items-center justify-between m-auto h-full px-4">
       <router-link to="/" class="text-white hover:text-gray-300 transition-colors p-1">
         <HomeIcon />

@@ -45,18 +45,17 @@ onBeforeMount(async () => {
 </script>
 
 <template>
-  <div class="flex flex-col gap-4
-      md:flex-row md:gap-6">
+  <div class="flex flex-col md:flex-row gap-4 md:gap-6 shrink-0">
 
-    <div class="
-        flex flex-row gap-3 flex-nowrap flex-1
-        sticky top-16 self-start"
-    >
-      <SelectTickers
-          @selected-ticker="changeStatus"/>
-
+    <div class="sticky top-0 h-full shrink-0">
+      <div class="md:sticky md:top-0 shrink-0">
+        <SelectTickers
+            @selected-ticker="changeStatus"
+        />
+      </div>
     </div>
-    <div class="flex-2 grid grid-cols-1 md:grid-cols-2 gap-3">
+
+    <div class="flex-1 grid grid-cols-1 md:grid-cols-2 gap-3">
       <QuoteCard
           v-for="quote in orderedQuotes"
           :key="quote.symbol"
