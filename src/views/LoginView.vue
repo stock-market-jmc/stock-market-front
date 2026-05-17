@@ -4,15 +4,21 @@ import FormGeneric from "@/components/common/FormGeneric.vue";
 import InputGeneric from "@/components/common/InputGeneric.vue";
 import {useAuthStore} from "@/stores/AuthStore.ts";
 import {computed, ref} from "vue";
+import {useRoute, useRouter} from "vue-router";
 
 const authStore = useAuthStore()
 const email = ref('');
 const password = ref('');
 const loading = computed(()=> authStore.loading)
 
-const onSubmit = () => {
-  authStore.login(email.value,password.value)
-}
+const route = useRoute();
+const router = useRouter();
+
+const onSubmit = async () => {
+  await authStore.login(email.value, password.value);
+  const redirect = route.query.redirect as string || '/';
+  await router.replace(redirect);
+};
 </script>
 
 <template>

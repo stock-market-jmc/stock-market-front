@@ -10,7 +10,7 @@ const props= defineProps<{
 
 const linkToOperationPage: ComputedRef<string> = computed(()=>{
   const slug = props.operation.slug
-  return `operation/${slug}`
+  return `operations/${slug}`
 })
 
 </script>
