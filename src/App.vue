@@ -6,7 +6,7 @@ import NavigationView from "@/views/NavigationView.vue";
   <div class="min-h-screen bg-gray-50">
     <NavigationView/>
     <main class="pt-16">
-      <div class="mx-auto my-2 px-2 md:px-4 md:w-300 md:my-6">
+      <div class="mx-auto py-2 px-2 md:px-4 md:w-300 md:py-6">
         <router-view/>
       </div>
     </main>
