@@ -40,6 +40,7 @@ onBeforeMount(async () => {
   await availableTickersStore.fetchAvailableTickers();
   const availableTickers = availableTickersStore.availableTickers
   await selectTickersStore.buildSelectTickers(availableTickers)
+  selectTickersStore.syncSelectedFromOrderedQuotes(quoteStore.orderedQuotes);
 })
 </script>
 

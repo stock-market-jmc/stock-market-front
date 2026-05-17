@@ -14,7 +14,7 @@ const emits = defineEmits<{
 }>()
 
 const globalQuoteStore = useQuoteStore()
-const {loadings} = storeToRefs(globalQuoteStore)
+const {loadings, quotes} = storeToRefs(globalQuoteStore)
 
 
 const loading = computed(() =>
@@ -27,6 +27,13 @@ const onClick = () => {
 
 const globalQuote = ref<QuoteInterface>()
 onBeforeMount(async () => {
+  const existingQuote = quotes.value[props.tickerInterface.symbol];
+
+  if (existingQuote) {
+    globalQuote.value = existingQuote;
+    return;
+  }
+
   globalQuote.value = await globalQuoteStore.fetchQuote(props.tickerInterface)
 })
 

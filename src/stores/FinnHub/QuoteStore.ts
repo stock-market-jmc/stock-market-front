@@ -60,7 +60,7 @@ export const useQuoteStore = defineStore("quoteStore", () => {
         persist: {
             key: 'quote-store',
             storage: localStorage,
-            pick: ['quotes'],
+            pick: ['quotes', 'orderedQuotes'],
         }
     }
 );

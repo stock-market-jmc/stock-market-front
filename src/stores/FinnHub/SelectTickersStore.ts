@@ -30,5 +30,18 @@ export const useSelectTickersStore = defineStore("selectTickersStore", () => {
         selectedTicker.value = option
         option.selected = !option.selected
     }
-    return {selectTickers, buildSelectTickers , changeStatus, selectedTicker};
+
+    const syncSelectedFromOrderedQuotes = (orderedQuotes: TickerInterface[]) => {
+        selectTickers.value.forEach(option => {
+            option.selected = false;
+        });
+        orderedQuotes.forEach(ticker => {
+            const option = selectTickers.value.find(opt => opt.value.symbol === ticker.symbol);
+            if (option) {
+                option.selected = true;
+            }
+        });
+    };
+
+    return {selectTickers, buildSelectTickers , changeStatus, selectedTicker, syncSelectedFromOrderedQuotes};
 });
